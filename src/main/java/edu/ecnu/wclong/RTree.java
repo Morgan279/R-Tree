@@ -76,8 +76,8 @@ public class RTree<T> {
 
 
     /**
-     * @param targetEntry targetEntry that need be deleted
-     * @return true if delete successfully; false, if targetEntry is not found
+     * @param targetEntry target entry that need be deleted
+     * @return true if delete successfully; false, if target entry is not found
      */
     public boolean delete(RTreeEntry<T> targetEntry) {
         RTreeNode<T> targetNode = rTreeAlgorithm.findLeaf(rootNode, targetEntry);
@@ -97,10 +97,23 @@ public class RTree<T> {
         return delete(targetEntry);
     }
 
-    public void update(RTreeEntry<T> oldEntry, RTreeEntry<T> newEntry) {
-        if (this.delete(oldEntry)) {
-            this.insert(newEntry);
+    /**
+     * @param entryId target entry id that need be updated
+     * @return true if update value successfully; false, if target entry is not found
+     */
+    public boolean update(String entryId, T newValue) {
+        RTreeEntry<T> targetEntry = new RTreeEntry<>(entryId);
+        RTreeNode<T> targetNode = rTreeAlgorithm.findLeaf(rootNode, targetEntry);
+        if (null == targetNode) return false;
+
+        for (RTreeEntry<T> entry : targetNode.getEntries()) {
+            if (entry.getId().equals(entryId)) {
+                entry.setValue(newValue);
+                return true;
+            }
         }
+
+        return false;
     }
 
     public RTreeNode<T> getRootNode() {

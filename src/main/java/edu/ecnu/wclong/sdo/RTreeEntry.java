@@ -80,6 +80,10 @@ public class RTreeEntry<T> {
         return value;
     }
 
+    public void setValue(T value) {
+        this.value = value;
+    }
+
     public RTreeNode<T> getChildren() {
         return children;
     }
