@@ -35,8 +35,6 @@ public class RTreeUtil {
         }
     }
 
-    private static int cnt = 0;
-
 
     public static <T> void printRTree(RTree<T> rTree) {
         print(rTree.getRootNode(), 1);
@@ -49,18 +47,14 @@ public class RTreeUtil {
         for (int i = 1; i < level; ++i) {
             System.out.print("\t");
         }
-        System.out.print(node + " ");
-        System.out.println();
+        System.out.print(node + " \n");
         for (RTreeEntry<T> rTreeEntry : node.getEntries()) {
             if (node.isLeafNode()) {
                 for (int i = 1; i < level; ++i) {
                     System.out.print("\t");
                 }
-                ++cnt;
-                System.out.print("======>" + rTreeEntry.getValue());
-                System.out.println();
-            }
-            print(rTreeEntry.getChildren(), level + 1);
+                System.out.print("======>" + rTreeEntry.getValue() + "\n");
+            } else print(rTreeEntry.getChildren(), level + 1);
         }
     }
 
@@ -81,7 +75,7 @@ public class RTreeUtil {
         int minY = (int) bound2.getLowerBound();
         for (int i = minX; i <= maxX; ++i) {
             for (int j = minY; j <= maxY; ++j) {
-                if (counter.contains(new RTreeUtil.Point(i, j))) {
+                if (counter.contains(new Point(i, j))) {
                     stringBuilder.append("`");
                 } else {
                     stringBuilder.append(" ");
@@ -97,8 +91,9 @@ public class RTreeUtil {
 
         count(node.getRectangle(), counter);
         for (RTreeEntry<T> rTreeEntry : node.getEntries()) {
-            count(rTreeEntry.getRectangle(), counter);
-            countBound(rTreeEntry.getChildren(), counter);
+            if (node.isLeafNode()) {
+                count(rTreeEntry.getRectangle(), counter);
+            } else countBound(rTreeEntry.getChildren(), counter);
         }
     }
 

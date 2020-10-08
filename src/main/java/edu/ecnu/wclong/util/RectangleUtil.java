@@ -8,19 +8,19 @@ import java.util.List;
 
 public class RectangleUtil {
 
-    public static Rectangle getBoundedRectangleByChildrenRectangles(List<Rectangle> childrenRectangles) {
-        if (null == childrenRectangles || childrenRectangles.isEmpty()) {
+    public static Rectangle getBoundedRectangleByRectangleList(List<Rectangle> rectangleList) {
+        if (null == rectangleList || rectangleList.isEmpty()) {
             throw new IllegalArgumentException("children rectangles can not be empty");
         }
 
-        int dimension = childrenRectangles.get(0).getDimension();
+        int dimension = rectangleList.get(0).getDimension();
         BoundVector boundVector = new BoundVector(dimension);
 
         for (int i = 0; i < dimension; ++i) {
             double lowest = Double.MAX_VALUE;
             double highest = -Double.MAX_VALUE;
 
-            for (Rectangle rectangle : childrenRectangles) {
+            for (Rectangle rectangle : rectangleList) {
                 Bound currentBound = rectangle.getBoundByIndex(i);
                 lowest = Double.min(lowest, currentBound.getLowerBound());
                 highest = Double.max(highest, currentBound.getHigherBound());
@@ -31,26 +31,26 @@ public class RectangleUtil {
         return new Rectangle(boundVector);
     }
 
-    public static <T> Rectangle getBoundedRectangleByChildrenEntries(List<RTreeEntry<T>> entries) {
-        List<Rectangle> childrenRectangles = new ArrayList<>();
+    public static <T> Rectangle getBoundedRectangleByEntries(List<RTreeEntry<T>> entries) {
+        List<Rectangle> rectangleList = new ArrayList<>();
 
         for (RTreeEntry<T> entry : entries) {
             if (null != entry.getRectangle()) {
-                childrenRectangles.add(entry.getRectangle());
+                rectangleList.add(entry.getRectangle());
             }
         }
 
-        return getBoundedRectangleByChildrenRectangles(childrenRectangles);
+        return getBoundedRectangleByRectangleList(rectangleList);
     }
 
     public static <T> Rectangle getBoundedRectangleByChildrenNode(RTreeNode<T> rTreeNode) {
         if (null == rTreeNode) return null;
 
-        return getBoundedRectangleByChildrenEntries(rTreeNode.getEntries());
+        return getBoundedRectangleByEntries(rTreeNode.getEntries());
     }
 
     public static Rectangle getBoundedRectangleByTwoRectangles(Rectangle rectangle1, Rectangle rectangle2) {
         List<Rectangle> rectangles = Arrays.asList(rectangle1, rectangle2);
-        return getBoundedRectangleByChildrenRectangles(rectangles);
+        return getBoundedRectangleByRectangleList(rectangles);
     }
 }

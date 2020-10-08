@@ -58,4 +58,11 @@ public class RTreeNodeLinearSeparator implements RTreeNodeSeparator {
         );
     }
 
+    @Override
+    public <T> RTreeEntry<T> pickNext(List<RTreeEntry<T>> entries, List<RTreeEntry<T>> splitList1, List<RTreeEntry<T>> splitList2) {
+        return entries.stream()
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("entries cannot be empty"));
+    }
+
 }

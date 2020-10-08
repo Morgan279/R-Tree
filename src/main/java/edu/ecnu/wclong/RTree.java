@@ -136,7 +136,7 @@ public class RTree<T> {
         RTreeEntry<T> targetNodeParent = targetNode.getParent();
         targetNode = new RTreeLeafNode<>(
                 rTreeNodeSplitResult.getSplitList1(),
-                RectangleUtil.getBoundedRectangleByChildrenEntries(
+                RectangleUtil.getBoundedRectangleByEntries(
                         rTreeNodeSplitResult.getSplitList1()
                 ),
                 targetNodeParent
@@ -146,7 +146,7 @@ public class RTree<T> {
 
         RTreeNode<T> newNode = new RTreeLeafNode<>(
                 rTreeNodeSplitResult.getSplitList2(),
-                RectangleUtil.getBoundedRectangleByChildrenEntries(
+                RectangleUtil.getBoundedRectangleByEntries(
                         rTreeNodeSplitResult.getSplitList2()
                 )
         );
@@ -177,7 +177,7 @@ public class RTree<T> {
     private void createNewNodeIfSplitNodeIsRootNode(RTreeNode<T> targetNode) {
         if (targetNode == rootNode) {
             RTreeNode<T> newRootNode = new RTreeNonLeafNode<>(new ArrayList<>());
-            RTreeEntry<T> newRootNodeEntry = new RTreeEntry<>(targetNode.getRectangle(), newRootNode, targetNode);
+            RTreeEntry<T> newRootNodeEntry = new RTreeEntry<>(newRootNode, targetNode);
             newRootNode.addEntry(newRootNodeEntry);
             targetNode.setParent(newRootNodeEntry);
             rootNode = newRootNode;
@@ -186,7 +186,6 @@ public class RTree<T> {
 
     private void updateNewNodeParentNodeAndAscend(RTreeNode<T> newNode, RTreeEntry<T> targetNodeParent) {
         RTreeEntry<T> newNodeParent = new RTreeEntry<>(
-                newNode.getRectangle(),
                 targetNodeParent.getLocatedNode(),
                 newNode
         );

@@ -1,8 +1,6 @@
 package edu.ecnu.wclong.sdo;
 
 
-import edu.ecnu.wclong.util.RectangleUtil;
-
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,8 +29,12 @@ public class RTreeEntry<T> {
         this.id = UUID.randomUUID().toString();
     }
 
-    public RTreeEntry(Rectangle rectangle, RTreeNode<T> locatedNode, RTreeNode<T> children) {
-        this.rectangle = rectangle;
+    public RTreeEntry(RTreeNode<T> locatedNode, RTreeNode<T> children) {
+        if (null == children) {
+            throw new IllegalArgumentException("cannot init entry when children is null");
+        }
+
+        this.rectangle = children.getRectangle();
         this.locatedNode = locatedNode;
         this.children = children;
         this.id = UUID.randomUUID().toString();
@@ -44,8 +46,13 @@ public class RTreeEntry<T> {
 
     public void setChildren(RTreeNode<T> children) {
         this.children = children;
-        this.rectangle = RectangleUtil.getBoundedRectangleByChildrenNode(children);
-        this.id = UUID.randomUUID().toString();
+        this.onChildrenChange();
+    }
+
+    public void onChildrenChange() {
+        this.rectangle = children.getRectangle();
+        //ascend
+        this.locatedNode.updateParentRectangleOnEntryChange();
     }
 
     @Override

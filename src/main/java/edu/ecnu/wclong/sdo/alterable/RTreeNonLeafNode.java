@@ -24,7 +24,7 @@ public class RTreeNonLeafNode<T> extends RTreeNode<T> {
     private Rectangle generateRectangle(List<RTreeEntry<T>> entries) {
         if (null == entries || entries.isEmpty()) return null;
 
-        return RectangleUtil.getBoundedRectangleByChildrenEntries(entries);
+        return RectangleUtil.getBoundedRectangleByEntries(entries);
     }
 
 

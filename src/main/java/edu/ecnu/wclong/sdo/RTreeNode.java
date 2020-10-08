@@ -14,14 +14,22 @@ public abstract class RTreeNode<T> {
     public void addEntry(RTreeEntry<T> newEntry) {
         this.entries.add(newEntry);
         //update rectangle when new Entry is added
-        this.rectangle = RectangleUtil.getBoundedRectangleByChildrenEntries(entries);
+        this.updateParentRectangleOnEntryChange();
+    }
+
+    public void updateParentRectangleOnEntryChange() {
+        //update current node's rectangle when new Entry is changed
+        this.rectangle = RectangleUtil.getBoundedRectangleByEntries(entries);
+        //update parent's rectangle when new Entry is changed
+        if (null != this.parent) {
+            this.parent.onChildrenChange();
+        }
     }
 
     public boolean removeEntry(RTreeEntry<T> targetEntry) {
         boolean isDeleted = this.entries.remove(targetEntry);
         if (isDeleted) {
-            //update rectangle when target Entry is deleted
-            this.rectangle = RectangleUtil.getBoundedRectangleByChildrenNode(targetEntry.getChildren());
+            this.updateParentRectangleOnEntryChange();
         }
         return isDeleted;
     }
