@@ -26,7 +26,6 @@ public interface RTreeNodeSeparator {
             entries.remove(nextEntry);
         }
 
-        System.out.println(splitList1.size() + " " + splitList2.size());
         return new RTreeNodeSplitResult<>(splitList1, splitList2);
     }
 

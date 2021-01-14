@@ -53,5 +53,4 @@ public class RTreeNodeQuadraticSeparator implements RTreeNodeSeparator {
         return nextEntry;
     }
 
-
 }
