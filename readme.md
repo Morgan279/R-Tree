@@ -5,6 +5,7 @@
 
 
 
+
 ### Search
 
 For 2-dimension spatial indexing, the bound vector here is the minimum bounding rectangle(MBR).
@@ -22,6 +23,8 @@ public void search() {
         Set<RTreeEntry<Integer>> results =  rTree.search(new Rectangle(boundVector));
 }
 ```
+
+
 
 
 
@@ -50,6 +53,8 @@ private RTreeEntry<Integer> generateRandomEntry() {
 
 
 
+
+
 ### Update
 
 ```java
@@ -68,6 +73,8 @@ public void update() {
 
 
 
+
+
 ### Delete
 
 ```java
@@ -82,6 +89,8 @@ public void delete() {
         System.out.println(rTree.delete(rTreeEntry));
 }
 ```
+
+
 
 
 
@@ -149,6 +158,8 @@ You can find the above code in [RTreeTest](https://github.com/Morgan279/R-Tree/b
 
 
 
+
+
 ### Node Splitting
 
 I implement the  Quadratic-Cost Algorithm and Linear-Cost Algorithm that mentioned in the paper.
@@ -202,6 +213,8 @@ public class RTreeNodeQuadraticSeparator implements RTreeNodeSeparator {
     
 }
 ```
+
+
 
 
 
@@ -280,6 +293,8 @@ public interface RTreeNodeSeparator {
 
 }
 ```
+
+
 
 
 
