@@ -1,6 +1,7 @@
 # R Tree
 
 > An implementation of paper [《R-trees: a dynamic index structure for spatial searching》](https://dl.acm.org/doi/pdf/10.1145/602259.602266) which supports n-dimension spatial indexing.
+For introductions in Chinese, you can find them [here](https://blog.csdn.net/qq_36456827/article/details/112632540).
 >
 
 
