@@ -145,7 +145,6 @@ public void testVisualization(){
 ~~~
 
 
-
 You can find the above code in [RTreeTest](https://github.com/Morgan279/R-Tree/blob/main/src/test/java/edu/ecnu/wclong/RTreeTest.java).
 
 
