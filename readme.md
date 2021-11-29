@@ -309,4 +309,4 @@ public interface RTreeNodeSeparator {
 
 Please feel free to contact me if you have any questions: coder_wclong@163.com.
 
-If it may be helpful for you, you could give me a star to support me.
+If it is helpful for you, you could give me a star to support me.
